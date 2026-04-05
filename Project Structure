@@ -1,0 +1,18 @@
+network-scanner/
+│── scanner.py
+│── README.md
+│── LICENSE
+│── .gitignore
+│── requirements.txt
+│── CONTRIBUTING.md
+│── CODE_OF_CONDUCT.md
+│── CHANGELOG.md
+│── ROADMAP.md
+│── SECURITY.md
+│── .github/
+│   ├── workflows/
+│   │   └── ci.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   └── PULL_REQUEST_TEMPLATE.md

@@ -1,0 +1,54 @@
+import socket
+import threading
+from datetime import datetime
+
+# Banner
+print("=" * 50)
+print("🔍 Simple Network Scanner")
+print("=" * 50)
+
+# Get target
+target = input("Enter target IP or domain: ")
+
+try:
+    target_ip = socket.gethostbyname(target)
+except socket.gaierror:
+    print("❌ Invalid target. Exiting...")
+    exit()
+
+print(f"\n[+] Target IP: {target_ip}")
+print("[+] Starting scan...\n")
+
+start_time = datetime.now()
+
+# Function to scan a port
+def scan_port(port):
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        socket.setdefaulttimeout(1)
+
+        result = sock.connect_ex((target_ip, port))
+        if result == 0:
+            print(f"[OPEN] Port {port}")
+        sock.close()
+
+    except Exception:
+        pass
+
+# Threading for faster scanning
+threads = []
+
+for port in range(1, 1025):  # Scan ports 1–1024
+    t = threading.Thread(target=scan_port, args=(port,))
+    threads.append(t)
+    t.start()
+
+# Wait for all threads to finish
+for t in threads:
+    t.join()
+
+end_time = datetime.now()
+total_time = end_time - start_time
+
+print("\n[+] Scan completed.")
+print(f"[+] Time taken: {total_time}")
